@@ -22,9 +22,15 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() { //создайте
 
 
-        try (Statement statement = connection.createStatement()) {
-            String sgl = "CREATE TABLE IF NOT EXISTS Nor.User" + "(id BIGINT PRIMARY KEY AUTO_INCREMENT, nameVARCHAR(140),lastName VARCHAR(145),age INT)";
-            statement.executeUpdate(sgl);
+        try (Statement statement = connection.createStatement()) { // делаем соединение
+            statement.executeUpdate( "CREATE TABLE IF NOT EXISTS nor.users" +
+                    " id MEDIUMINT NOT NULL AUTO_INCREMENT," +
+                    "name VARCHAR(20)NOT NULL," +
+                    "lastname VARCHAR(20) NOT NULL," +
+                    "age TINYINT NOT NULL," +
+                    "PRIMARY KEY (id));");
+            System.out.println("Успешно");
+
 
         } catch (SQLException e) {
             System.out.printf("Ошибка при создании пользователя");
@@ -37,7 +43,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try  (Statement statement = connection.createStatement()) {
 
 
-            statement.executeUpdate("DROP TABLE IF EXISTS User");
+            statement.executeUpdate("DROP TABLE IF EXISTS nor.users");
             connection.commit();
 
         } catch (SQLException e) {
@@ -52,11 +58,11 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) {
         try (PreparedStatement preparedStatement =
-                     connection.prepareStatement("INSERT INTO users VALUES (?,?,?)")) {
+                     connection.prepareStatement("INSERT INTO nor.users(name, lastname, age) VALUES (?,?,?)")) { // вставить в поля следующин значения
 
             preparedStatement.setString(1,name);
             preparedStatement.setString(2,lastName);
-            preparedStatement.setString(3, String.valueOf(age));
+            preparedStatement.setString(3,String.valueOf(age));
 
             preparedStatement.executeUpdate();
             System.out.println("User c именем " + name + "добавлен в базу данных");
@@ -70,10 +76,10 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void removeUserById(long id) {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("DELETE FROM User WHERE id");//берет в параметрах и засовывет в запрос sql
+            statement.executeUpdate("DELETE FROM nor.users WHERE id");//берет в параметрах и засовывет в запрос sql
 
 
-            System.out.printf("User с %d - удален\n", id);
+            System.out.printf("User с %d - удален\n", id); // удален и переход на новую строку
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -83,10 +89,10 @@ public class UserDaoJDBCImpl implements UserDao {
         public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Statement statement = connection.createStatement()){
-            ResultSet resultSet = statement.executeQuery( "SELECT id, name, lastname, age");
+            ResultSet resultSet = statement.executeQuery( "SELECT id, name, lastname, age FROM nor.users"); // получать определенные данные из таблицы
             while (resultSet.next()) {
                 User user = new User();
-                user.setId(resultSet.getLong("id"));//дали юзеру ади
+                user.setId(resultSet.getLong("id"));//дали юзеру айди
                 user.setName(resultSet.getString("name"));
                 user.setLastName(resultSet.getString("lastname"));
                 user.setAge(resultSet.getByte("age"));
@@ -102,8 +108,8 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() {
-        try (Statement statement = connection.createStatement()){
-            statement.executeUpdate("TRUNCATE User");
+        try (Statement statement = connection.createStatement()){ // здесь чистим страницу
+            statement.executeUpdate("TRUNCATE nor.users");
             System.out.println("Таблица пустая");
 
         } catch (SQLException e) {

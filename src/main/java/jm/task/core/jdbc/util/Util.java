@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    private static final String URL = "jdbc:mysql://localinstance:3306/Nor";
+    private static final String URL = "jdbc:mysql://localhost:3306/nor";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "rootroot"; // для пароля
 
@@ -19,10 +19,10 @@ public class Util {
         try {
             Class.forName(DRIVER);
              connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("get connect");
+        } catch (SQLException  | ClassNotFoundException e) {
+            System.out.println("error");
+
         }
         return connection;
     }
