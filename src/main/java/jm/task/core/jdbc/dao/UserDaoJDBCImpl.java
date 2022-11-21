@@ -23,7 +23,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
         try (Statement statement = connection.createStatement()) { // делаем соединение
-            statement.executeUpdate( "CREATE TABLE IF NOT EXISTS nor.users" +
+            statement.executeUpdate( "CREATE TABLE IF NOT EXISTS nor.users (" +
                     " id MEDIUMINT NOT NULL AUTO_INCREMENT," +
                     "name VARCHAR(20)NOT NULL," +
                     "lastname VARCHAR(20) NOT NULL," +
