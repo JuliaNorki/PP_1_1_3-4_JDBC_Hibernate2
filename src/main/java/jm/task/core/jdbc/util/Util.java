@@ -1,18 +1,19 @@
 package jm.task.core.jdbc.util;
 
-import com.mysql.cj.xdevapi.SessionFactory;
 import jm.task.core.jdbc.model.User;
-import org.hibernate.boot.registry.StandardServiceRegistry;
+import jm.task.core.jdbc.util.Util;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-import java.nio.channels.ScatteringByteChannel;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 public class Util {
@@ -39,7 +40,7 @@ public class Util {
 
     private static SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactory() {
+    public static org.hibernate.SessionFactory getSessionFactory() {
 
         if (sessionFactory == null) {
             try {
@@ -63,7 +64,7 @@ public class Util {
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
 
-                sessionFactory = (SessionFactory) configuration.buildSessionFactory(serviceRegistry);
+                sessionFactory =  configuration.buildSessionFactory(serviceRegistry);
 
 
             } catch (Exception e) {
