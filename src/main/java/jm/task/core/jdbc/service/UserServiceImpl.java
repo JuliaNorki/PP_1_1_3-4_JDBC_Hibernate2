@@ -11,13 +11,13 @@ public class UserServiceImpl implements UserService {
     UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
     private UserDao userDaoHibernate = new UserDaoHibernateImpl();
     public void createUsersTable() {
-        userDaoJDBC.createUsersTable();
+       userDaoJDBC.createUsersTable();
         userDaoHibernate.createUsersTable();
 
     }
 
     public void dropUsersTable() {
-        userDaoJDBC.createUsersTable();
+       // userDaoJDBC.createUsersTable();
         userDaoHibernate.createUsersTable();
 
     }
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void removeUserById(long id) {
-        userDaoJDBC.removeUserById(id);
+       // userDaoJDBC.removeUserById(id);
         userDaoHibernate.removeUserById(id);
 
     }
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void cleanUsersTable() {
-        userDaoJDBC.cleanUsersTable();
+      //  userDaoJDBC.cleanUsersTable();
         userDaoHibernate.cleanUsersTable();
 
     }
