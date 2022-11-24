@@ -38,7 +38,7 @@ public class UserDaoHibernateImpl implements UserDao {
                     "PRIMARY KEY (id))").executeUpdate();
             transaction.commit();
             System.out.println("Table created");
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
@@ -104,15 +104,14 @@ public class UserDaoHibernateImpl implements UserDao {
 
        try (Session session = Util.getSessionFactory().openSession()) {
            transaction = session.beginTransaction();
-           result = session.createQuery("from User", User.class).list();
-           session.getTransaction().commit();
-       }catch (HibernateException e) {
+            result = session.createQuery("from User", User.class).list();
+            session.getTransaction().commit();
+
+       } catch (HibernateException e) {
            if (transaction != null) {
                transaction.rollback();
            }
-
-
-        }
+       }
         return result;
     }
 
@@ -122,7 +121,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createQuery("DELETE FROM User ").executeUpdate();
             session.getTransaction().commit();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
