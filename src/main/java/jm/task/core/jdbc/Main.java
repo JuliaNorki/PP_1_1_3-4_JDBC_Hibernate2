@@ -9,8 +9,8 @@ public class Main {
     private static final   User user1= new User("Jul1","Nor1", (byte) 1);
     private static final   User user2= new User("Jul2","Nor2", (byte) 2);
     private static final   User user3= new User("Jul3","Nor3", (byte) 3);
-    private static final   User user4= new User("Jul4","Nor4", (byte) 4);//проолрлор
-    private static final   User user5= new User("Jul5","Nor5", (byte) 5);//прорроророооооо
+    private static final   User user4= new User("Jul4","Nor4", (byte) 4);
+    private static final   User user5= new User("Jul5","Nor5", (byte) 5);
     public static void main(String[] args) {
         userService.createUsersTable();
 
