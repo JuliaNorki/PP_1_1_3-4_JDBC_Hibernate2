@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     public void dropUsersTable() {
        // userDaoJDBC.createUsersTable();
-        userDaoHibernate.createUsersTable();
+        userDaoHibernate.dropUsersTable();
 
     }
 
